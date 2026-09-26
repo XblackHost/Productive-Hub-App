@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Hatif Workspace</string>
+    <string name="app_tagline">Personal Platform for Focus, Reflection &amp; Growth</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Home</string>
+    <string name="nav_focus">Focus</string>
+    <string name="nav_diary">Diary</string>
+    <string name="nav_reflection">Reflection</string>
+    <string name="nav_grades">Grades</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Accessibility Service & Blocker (Preserved from Focus Hatif!) -->
+    <string name="accessibility_service_description">Enforces daily scrolling limits and auto-exits YouTube Shorts and Instagram Reels to protect your attention. Strictly confined to YouTube and Instagram.</string>
+    <string name="master_switch_title">Shorts &amp; Reels Shield</string>
+    <string name="master_switch_subtitle">Active scrolling limits and exit protection</string>
+    <string name="status_accessibility_title">Accessibility Service</string>
+    <string name="status_accessibility_enabled">Active &amp; Monitoring</string>
+    <string name="status_accessibility_disabled">Disabled in System Settings</string>
+    <string name="btn_open_accessibility">Enable Service</string>
+    <string name="status_battery_title">Battery Optimization</string>
+    <string name="status_battery_unrestricted">Unrestricted (Recommended)</string>
+    <string name="status_battery_restricted">Restricted (XOS may stop service)</string>
+    <string name="btn_request_battery">Request Exemption</string>
+    <string name="btn_open_app_info">Open App Info</string>
+    <string name="xos_instructions_title">Infinix Hot 60i / XOS 15 Guide</string>
+    <string name="xos_step_1">1. Settings > Apps > Hatif Workspace > Battery > Unrestricted.</string>
+    <string name="xos_step_2">2. Settings > Battery > Power Saving > App Battery Management > Hatif Workspace > Allow background activity.</string>
+    <string name="xos_step_3">3. Settings > Apps > Hatif Workspace > Autostart > ON.</string>
+    <string name="xos_step_4">4. Lock Hatif Workspace in recent apps menu.</string>
+    <string name="stats_title">Today\'s Scroll Allowance &amp; Activity</string>
+    <string name="stats_today">Blocks Today</string>
+    <string name="stats_total">Total Rescues</string>
+    <string name="toast_blocked">Hatif Workspace: Limit reached — back to focus!</string>
+    <string name="timer_section_title">Daily Scrolling Allowance</string>
+    <string name="timer_section_desc">Set how many minutes you can scroll Shorts &amp; Reels per day before auto-exit kicks in.</string>
+    <string name="youtube_limit_label">YouTube Shorts</string>
+    <string name="instagram_limit_label">Instagram Reels</string>
+    <string name="strict_blocking">0m (Strict Block)</string>
+    <string name="unlimited_time">Unlimited</string>
+
+    <!-- Admin Lock (Peer / Parent) -->
+    <string name="admin_lock_title">Admin Lock (Peer / Parent)</string>
+    <string name="admin_lock_active_title">Admin Lock Active</string>
+    <string name="admin_lock_subtitle_off">Hand your phone to a trusted friend or parent to set an admin password so you can\'t impulsively disable blocking.</string>
+    <string name="admin_lock_subtitle_on">Shield switch and timer limits are protected by your trusted peer.</string>
+    <string name="btn_enable_admin_lock">Set Up Admin Lock</string>
+    <string name="btn_admin_unlock">Unlock / Manage Lock</string>
+    <string name="admin_enter_pin_title">Enter Admin Password</string>
+    <string name="admin_pin_hint">Admin Password or PIN</string>
+    <string name="admin_forgot_password">Forgot Password?</string>
+    <string name="admin_recovery_title">Password Recovery Resolution</string>
+    <string name="admin_recovery_desc">If your peer forgot the password, choose a recovery option below to regain access.</string>
+    <string name="admin_emergency_reset_active">Emergency 24h Reset Active</string>
+
+    <!-- Diary Module -->
+    <string name="diary_title">Encrypted Diary</string>
+    <string name="diary_subtitle">AES-256 encrypted at rest. Purely offline &amp; private.</string>
+    <string name="diary_locked_header">Private Sanctuary</string>
+    <string name="diary_locked_desc">This diary is encrypted with Android KeyStore hardware cryptography. Authenticate to decrypt and read your personal entries.</string>
+    <string name="diary_security_question">What does Hatif Wants?</string>
+    <string name="diary_new_entry">New Diary Entry</string>
+    <string name="diary_change_password">Change Password</string>
+
+    <!-- 30-Day Self-Reflection Module -->
+    <string name="reflection_title">30-Day Self-Reflection</string>
+    <string name="reflection_subtitle">Track your daily mindset, rate each day 1–10, and export an AI-ready growth analysis.</string>
+    <string name="reflection_streak_label">Reflection Streak</string>
+    <string name="reflection_export_ai_btn">Export 30-Day AI Report (.txt)</string>
+
+    <!-- Grades & Study Module -->
+    <string name="grades_title">High School Grades</string>
+    <string name="grades_subtitle">Monitor subject percentages, target goals, and study progress.</string>
+
+    <!-- Pomodoro Focus Timer -->
+    <string name="pomodoro_title">Focus Session</string>
+    <string name="pomodoro_focus_label">Focus Time</string>
+    <string name="pomodoro_break_label">Short Break</string>
+</resources>

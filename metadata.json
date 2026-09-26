@@ -1,0 +1,6 @@
+{
+  "name": "Hatif Workspace",
+  "description": "Personal private workspace featuring distraction blocking, hardware-encrypted diary, 30-day self-reflection cycle with AI export, academic grades tracking, and focus tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
