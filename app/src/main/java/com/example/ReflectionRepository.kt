@@ -156,7 +156,7 @@ object ReflectionRepository {
 
         val sb = StringBuilder()
         sb.append("=================================================================\n")
-        sb.append("         HATIF WORKSPACE: 30-DAY SELF-REFLECTION REPORT          \n")
+        sb.append("         PRODUCTIVE HUB: 30-DAY SELF-REFLECTION REPORT          \n")
         sb.append("=================================================================\n\n")
         sb.append("Report Date: $dateNow\n")
         sb.append("Cycle Progress: $completedCount of $MAX_CYCLE_DAYS Days Completed\n")
@@ -204,7 +204,7 @@ object ReflectionRepository {
         val report = generateAiExportText()
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_SUBJECT, "Hatif Workspace - 30-Day Self-Reflection Report")
+            putExtra(Intent.EXTRA_SUBJECT, "Productive Hub - 30-Day Self-Reflection Report")
             putExtra(Intent.EXTRA_TEXT, report)
         }
         val chooser = Intent.createChooser(intent, "Share / Upload 30-Day Reflection Report")

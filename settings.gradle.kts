@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Hatif Workspace"
+rootProject.name = "Productive Hub"
 
 include(":app")

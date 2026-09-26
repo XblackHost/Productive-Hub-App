@@ -28,3 +28,20 @@ val StatusWarningAmber = Color(0xFFFFB300)
 val StatusErrorRed = Color(0xFFFF5252)
 val StatusInfoCyan = Color(0xFF00E5FF)
 val StatusPurple = Color(0xFFB388FF)
+
+// Light Theme Palette (Clean, bright Material 3 with vibrant green accents)
+val LightBackground = Color(0xFFF6F9F6)
+val LightSurface = Color(0xFFFFFFFF)
+val LightSurfaceVariant = Color(0xFFEAF1EB)
+val LightSurfaceElevated = Color(0xFFE1EAE3)
+val LightOutline = Color(0xFFCCD9CE)
+val LightOutlineHighlight = Color(0xFFA8C4AD)
+
+val LightPrimary = Color(0xFF0B7C22)             // Accessible emerald green on light surface
+val LightOnPrimary = Color(0xFFFFFFFF)
+val LightPrimaryContainer = Color(0xFFD3F6DB)    // Fresh mint pill container
+val LightOnPrimaryContainer = Color(0xFF034410)  // Deep readable green text
+
+val LightTextPrimary = Color(0xFF131D16)         // Deep slate dark text
+val LightTextSecondary = Color(0xFF496150)       // Medium muted moss
+val LightTextMuted = Color(0xFF728A7A)           // Soft outline text

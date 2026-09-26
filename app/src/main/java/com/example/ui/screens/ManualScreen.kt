@@ -58,9 +58,9 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 }
                 Spacer(Modifier.width(4.dp))
                 Text(
-                    text = "Back to Workspace",
+                    text = "Back to Productive Hub",
                     style = MaterialTheme.typography.labelLarge,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -69,8 +69,8 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-            border = BorderStroke(1.dp, XboxNeonGreen.copy(alpha = 0.5f))
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
         ) {
             Column(
                 modifier = Modifier.padding(20.dp),
@@ -82,24 +82,24 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 ) {
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = XboxNeonGreen.copy(alpha = 0.15f),
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
                         modifier = Modifier.size(46.dp)
                     ) {
                         Box(contentAlignment = Alignment.Center) {
-                            Icon(Icons.Default.MenuBook, contentDescription = null, tint = XboxNeonGreen, modifier = Modifier.size(26.dp))
+                            Icon(Icons.Default.MenuBook, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(26.dp))
                         }
                     }
                     Column {
                         Text(
-                            text = "Hatif User Manual",
+                            text = "Productive Hub User Manual",
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.ExtraBold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = "Migration Guide, Optimization & Device Tips",
                             style = MaterialTheme.typography.bodySmall,
-                            color = XboxTextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -107,7 +107,7 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 Text(
                     text = "Everything you need to master your private workspace, migrate to a new device without packet loss, preserve battery life, and maintain total digital privacy.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 18.sp
                 )
             }
@@ -123,9 +123,9 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
-                    text = "Hatif Workspace is 100% offline—it contains no cloud servers or network sockets. When moving to a new Android phone, follow these exact steps to ensure zero packet loss:",
+                    text = "Productive Hub is 100% offline—it contains no cloud servers or network sockets. When moving to a new Android phone, follow these exact steps to ensure zero packet loss:",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 18.sp
                 )
 
@@ -144,7 +144,7 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 ManualStepItem(
                     stepNumber = "3",
                     title = "Install App on New Phone & Import",
-                    description = "Install Hatif Workspace APK on your new phone, navigate to this Manual or Diary screen, tap 'Restore / Import Backup', and paste your data. The engine merges records with zero loss."
+                    description = "Install Productive Hub APK on your new phone, navigate to this Manual or Diary screen, tap 'Restore / Import Backup', and paste your data. The engine merges records with zero loss."
                 )
 
                 Row(
@@ -190,9 +190,9 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
-                    text = "How Hatif Workspace is engineered to consume virtually 0% standby battery:",
+                    text = "How Productive Hub is engineered to consume virtually 0% standby battery:",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 18.sp
                 )
 
@@ -247,7 +247,7 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 Text(
                     text = "To eliminate doomscrolling, you can give your phone to a trusted parent or friend to set a Peer Admin Password.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 18.sp
                 )
 
@@ -283,7 +283,7 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 Text(
                     text = "Reflect once a day for 30 consecutive days. Track your mood, highlight of the day, habits completed, and an overall score out of 10.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 18.sp
                 )
 
@@ -306,14 +306,14 @@ fun ManualScreen(context: Context, onBack: (() -> Unit)? = null) {
                 Text(
                     text = "Yes! Android's Package Manager automatically updates an app over the previous version without wiping any data, provided two key conditions are met:",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 18.sp
                 )
 
                 ManualStepItem(
                     stepNumber = "1",
                     title = "Same Package ID & Keystore Signature",
-                    description = "When you build or download a new APK of Hatif Workspace from this studio, it retains the exact same package namespace and debug signing keystore. Android sees it as a direct upgrade."
+                    description = "When you build or download a new APK of Productive Hub, it retains the exact same package namespace and signing keystore. Android sees it as a direct upgrade."
                 )
 
                 ManualStepItem(
@@ -357,8 +357,8 @@ fun ManualChapterCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(18.dp),
@@ -372,6 +372,7 @@ fun ManualChapterCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
+                    modifier = Modifier.weight(1f, fill = false).padding(end = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
@@ -398,7 +399,7 @@ fun ManualChapterCard(
                             text = title,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -407,7 +408,7 @@ fun ManualChapterCard(
                     Icon(
                         imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
                         contentDescription = "Toggle",
-                        tint = XboxTextSecondary
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -436,22 +437,22 @@ fun ManualStepItem(
     ) {
         Surface(
             shape = CircleShape,
-            color = XboxNeonGreen.copy(alpha = 0.15f),
-            border = BorderStroke(1.dp, XboxNeonGreen.copy(alpha = 0.5f)),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)),
             modifier = Modifier.size(24.dp)
         ) {
             Box(contentAlignment = Alignment.Center) {
                 Text(
                     text = stepNumber,
                     style = MaterialTheme.typography.labelSmall,
-                    color = XboxNeonGreen,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 )
             }
         }
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(text = title, style = MaterialTheme.typography.titleSmall, color = XboxTextPrimary, fontWeight = FontWeight.SemiBold)
-            Text(text = description, style = MaterialTheme.typography.bodySmall, color = XboxTextSecondary, lineHeight = 17.sp)
+            Text(text = title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold)
+            Text(text = description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 17.sp)
         }
     }
 }
@@ -465,10 +466,10 @@ fun ManualBulletPoint(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Text("•", color = XboxNeonGreen, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text("•", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 16.sp)
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(text = title, style = MaterialTheme.typography.titleSmall, color = XboxTextPrimary, fontWeight = FontWeight.SemiBold)
-            Text(text = description, style = MaterialTheme.typography.bodySmall, color = XboxTextSecondary, lineHeight = 17.sp)
+            Text(text = title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold)
+            Text(text = description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 17.sp)
         }
     }
 }
@@ -484,14 +485,14 @@ fun ImportBackupDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Restore / Import Diary Data", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Restore / Import Diary Data", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
                     "Paste your exported JSON or AES-256 encrypted backup payload below. The engine will parse and merge all entries with zero loss:",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 OutlinedTextField(
                     value = payloadInput,
@@ -504,8 +505,8 @@ fun ImportBackupDialog(
                         .fillMaxWidth()
                         .height(130.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = XboxNeonGreen,
-                        unfocusedBorderColor = XboxOutline
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
                     )
                 )
                 errorMsg?.let { Text(it, color = StatusErrorRed, style = MaterialTheme.typography.bodySmall) }
@@ -525,13 +526,16 @@ fun ImportBackupDialog(
                         }
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = XboxNeonGreen, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
             ) {
                 Text("Restore Entries")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }

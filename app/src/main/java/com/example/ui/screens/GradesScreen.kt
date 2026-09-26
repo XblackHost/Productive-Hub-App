@@ -45,7 +45,7 @@ fun GradesScreen(context: Context) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 border = BorderStroke(1.5.dp, StatusPurple.copy(alpha = 0.5f))
             ) {
                 Column(
@@ -69,13 +69,13 @@ fun GradesScreen(context: Context) {
                                 text = "High School Grades",
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = XboxTextPrimary
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
 
                         Surface(
                             shape = CircleShape,
-                            color = StatusPurple.copy(alpha = 0.2f),
+                            color = StatusPurple.copy(alpha = 0.15f),
                             border = BorderStroke(1.5.dp, StatusPurple)
                         ) {
                             Text(
@@ -96,8 +96,8 @@ fun GradesScreen(context: Context) {
                         Surface(
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp),
-                            color = XboxDarkSurfaceVariant,
-                            border = BorderStroke(1.dp, XboxNeonGreen.copy(alpha = 0.4f))
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
                         ) {
                             Column(
                                 modifier = Modifier.padding(vertical = 10.dp, horizontal = 4.dp),
@@ -107,17 +107,17 @@ fun GradesScreen(context: Context) {
                                     text = if (avgScore > 0.0) "$avgScore%" else "N/A",
                                     style = MaterialTheme.typography.titleMedium,
                                     fontWeight = FontWeight.ExtraBold,
-                                    color = XboxNeonGreen
+                                    color = MaterialTheme.colorScheme.primary
                                 )
-                                Text("Overall Avg", style = MaterialTheme.typography.labelSmall, color = XboxTextSecondary, fontSize = 10.sp, maxLines = 1)
+                                Text("Overall Avg", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, maxLines = 1)
                             }
                         }
 
                         Surface(
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp),
-                            color = XboxDarkSurfaceVariant,
-                            border = BorderStroke(1.dp, XboxOutline)
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                         ) {
                             Column(
                                 modifier = Modifier.padding(vertical = 10.dp, horizontal = 4.dp),
@@ -129,15 +129,15 @@ fun GradesScreen(context: Context) {
                                     fontWeight = FontWeight.ExtraBold,
                                     color = StatusInfoCyan
                                 )
-                                Text("Top Score", style = MaterialTheme.typography.labelSmall, color = XboxTextSecondary, fontSize = 10.sp, maxLines = 1)
+                                Text("Top Score", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, maxLines = 1)
                             }
                         }
 
                         Surface(
                             modifier = Modifier.weight(1f),
                             shape = RoundedCornerShape(12.dp),
-                            color = XboxDarkSurfaceVariant,
-                            border = BorderStroke(1.dp, XboxOutline)
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                         ) {
                             Column(
                                 modifier = Modifier.padding(vertical = 10.dp, horizontal = 4.dp),
@@ -149,7 +149,7 @@ fun GradesScreen(context: Context) {
                                     fontWeight = FontWeight.ExtraBold,
                                     color = StatusPurple
                                 )
-                                Text("Passing", style = MaterialTheme.typography.labelSmall, color = XboxTextSecondary, fontSize = 10.sp, maxLines = 1)
+                                Text("Passing", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp, maxLines = 1)
                             }
                         }
                     }
@@ -161,7 +161,7 @@ fun GradesScreen(context: Context) {
                 text = "Subjects & Scores",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = XboxTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             if (courses.isEmpty()) {
@@ -176,9 +176,9 @@ fun GradesScreen(context: Context) {
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         modifier = Modifier.padding(20.dp)
                     ) {
-                        Icon(Icons.Default.School, contentDescription = null, tint = XboxOutlineHighlight, modifier = Modifier.size(48.dp))
-                        Text("No subjects added yet", color = XboxTextSecondary, style = MaterialTheme.typography.titleMedium)
-                        Text("Tap the + button to add your school subjects and scores.", color = XboxTextMuted, style = MaterialTheme.typography.bodySmall)
+                        Icon(Icons.Default.School, contentDescription = null, tint = MaterialTheme.colorScheme.outline, modifier = Modifier.size(48.dp))
+                        Text("No subjects added yet", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.titleMedium)
+                        Text("Tap the + button to add your school subjects and scores.", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                     }
                 }
             } else {
@@ -206,7 +206,7 @@ fun GradesScreen(context: Context) {
         FloatingActionButton(
             onClick = { showAddCourseDialog = true },
             containerColor = StatusPurple,
-            contentColor = XboxBlack,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
             shape = CircleShape,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -233,8 +233,8 @@ fun CourseCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -268,12 +268,12 @@ fun CourseCard(
                             text = course.courseName,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = "Target Goal: ${course.targetGradePercent}%",
                             style = MaterialTheme.typography.bodySmall,
-                            color = XboxTextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -283,10 +283,10 @@ fun CourseCard(
                         text = "${course.currentGradePercent}%",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.ExtraBold,
-                        color = if (course.currentGradePercent >= course.targetGradePercent) XboxNeonGreen else StatusWarningAmber
+                        color = if (course.currentGradePercent >= course.targetGradePercent) MaterialTheme.colorScheme.primary else StatusWarningAmber
                     )
                     IconButton(onClick = onDelete) {
-                        Icon(Icons.Default.DeleteOutline, contentDescription = "Delete", tint = XboxTextSecondary)
+                        Icon(Icons.Default.DeleteOutline, contentDescription = "Delete", tint = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -304,13 +304,13 @@ fun CourseCard(
                     Text(
                         text = "Study Hours: ${course.studyHoursCompleted}h / ${course.studyHoursGoal}h",
                         style = MaterialTheme.typography.labelSmall,
-                        color = XboxTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp
                     )
                     Text(
                         text = "${(studyProgress * 100).toInt()}% Goal",
                         style = MaterialTheme.typography.labelSmall,
-                        color = XboxNeonGreen,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 11.sp
                     )
                 }
@@ -321,8 +321,8 @@ fun CourseCard(
                         .fillMaxWidth()
                         .height(6.dp)
                         .clip(RoundedCornerShape(3.dp)),
-                    color = XboxNeonGreen,
-                    trackColor = XboxDarkSurfaceVariant
+                    color = MaterialTheme.colorScheme.primary,
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             }
         }
@@ -343,8 +343,8 @@ fun AddCourseDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Add Subject & Score", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Add Subject & Score", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -355,7 +355,10 @@ fun AddCourseDialog(
                     onValueChange = { courseName = it },
                     label = { Text("Subject Name (e.g. Physics, Chemistry)") },
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = StatusPurple, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = StatusPurple,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 OutlinedTextField(
@@ -363,7 +366,10 @@ fun AddCourseDialog(
                     onValueChange = { currentScoreInput = it },
                     label = { Text("Current Percentage (%)") },
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = StatusPurple, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = StatusPurple,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 OutlinedTextField(
@@ -371,7 +377,10 @@ fun AddCourseDialog(
                     onValueChange = { targetScoreInput = it },
                     label = { Text("Target Goal Percentage (%)") },
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = StatusPurple, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = StatusPurple,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 OutlinedTextField(
@@ -379,7 +388,10 @@ fun AddCourseDialog(
                     onValueChange = { studyGoalInput = it },
                     label = { Text("Weekly Study Target (Hours)") },
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = StatusPurple, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = StatusPurple,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 errorMsg?.let { Text(it, color = StatusErrorRed, style = MaterialTheme.typography.bodySmall) }
@@ -409,13 +421,16 @@ fun AddCourseDialog(
                         onSaved()
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = StatusPurple, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = StatusPurple,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
             ) {
                 Text("Save Subject")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }

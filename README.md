@@ -1,86 +1,129 @@
-# Focus Hatif!
+# Productive Hub
 
-**Focus Hatif!** is a distraction-blocking and scrolling limiter application engineered in Kotlin and Jetpack Compose for the **Infinix Hot 60i** running **Android 15 / XOS 15**.
+> **Your attention, your device, your rules. A 100% offline productivity suite.**
 
-Focus Hatif! allows you to set custom daily scrolling timers for YouTube Shorts and Instagram Reels. Once your daily allowance runs out (or immediately if set to Strict 0m), Focus Hatif! automatically backs you out of Shorts and Reels so you can regain your focus.
-
----
-
-## ⏱️ Daily Scrolling Allowance & Auto-Exit
-
-- **Custom Timers for Shorts & Reels**:
-  - Independent limits for YouTube Shorts and Instagram Reels (Presets: Strict 0m, 5m, 15m, 30m, 45m, 60m, or any custom value via slider).
-  - While within your daily allowance, enjoy Shorts & Reels freely.
-  - Active in-session countdown tracks elapsed seconds in real-time.
-- **Automatic Exit**:
-  - The second your allowance for the day expires, Focus Hatif! smoothly executes the back action to return you to your feed or chat, and displays a motivating toast: *"Focus Hatif!: Limit reached — back to work!"*.
-  - Strict 0m setting instantly auto-backs whenever Shorts or Reels are opened.
-- **Strict Inbox & Direct Message Protection**:
-  - Focus Hatif! strictly protects Instagram Direct Messages, chat threads, story viewers, and inbox navigation so you can message and view shared content without interference.
-- **Reset Today's Time**:
-  - One-tap button on the dashboard to reset today's counters whenever needed.
+[![Android API](https://img.shields.io/badge/Android%20API-26%2B-brightgreen.svg)](https://developer.android.com)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.0%2B-blue.svg)](https://kotlinlang.org)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-M3-purple.svg)](https://developer.android.com/jetpack/compose)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Build Status](https://github.com/XblackHost/Productive-Hub-App/actions/workflows/build.yml/badge.svg)](https://github.com/XblackHost/Productive-Hub-App/actions)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ---
 
-## 🔒 Peer Admin Lock (Anti-Relapse Protection)
+## Why I Built This
 
-To prevent impulsively turning off the blocker or expanding daily scrolling timers, Focus Hatif! includes a **Peer Admin Lock**:
+Most productivity and habit-tracking apps on the Google Play Store do the exact opposite of what they promise: they track your every action, monetize your attention with intrusive ads, lock essential features behind recurring subscriptions, and require internet access just to save a thought. 
 
-1. **Setup by a Trusted Friend or Parent**:
-   - Hand the phone to a peer. They set an admin password or PIN that you do not know.
-   - The peer selects a **Security Question** and answers it.
-   - A unique 10-character **Master Recovery Key** (`FH-XXXX-XXXX`) is generated and can be copied or screenshotted.
-2. **Ironclad Protection**:
-   - Disabling the Shorts/Reels shield, increasing daily scrolling limits, and resetting usage counters are locked behind the admin password.
-3. **Forgotten Password Resolution**:
-   - If the peer forgets the password, the app provides three recovery pathways:
-     - **Option 1 (Security Question)**: The peer answers their secret question to reset access.
-     - **Option 2 (Master Recovery Key)**: Entering the saved recovery key unlocks the app immediately.
-     - **Option 3 (24-Hour Cooling-Off Emergency Reset)**: If both are forgotten, a 24-hour delayed reset countdown can be started. The lock remains active during the 24 hours to prevent impulsive relapse, and deactivates safely once the full 24 hours elapse.
+I built **Productive Hub** because our attention belongs to us. No app designed to build focus should harvest personal telemetry or phone home to cloud servers. Productive Hub is completely offline, privacy-first, free, and open-source forever. Everything you write and every metric you track stays right where it belongs: on your personal device.
 
 ---
 
-## 📸 Instagram Stories & DMs Guarantee
+## Features
 
-- **Stories**: Full support for Instagram Stories (story viewer, segmented progress bar, profile headers, reply prompts, and close buttons) without accidental triggers.
-- **Direct Messages**: Chat threads, message composer, voice notes, and shared links are completely unrestricted.
+### 1. Shorts & Reels Blocker
+An intelligent Android `AccessibilityService` that monitors fast-scrolling dopamine traps in YouTube Shorts and Instagram Reels. When detected, it triggers an immediate system back action to exit the feed and records daily distraction metrics.
 
----
+### 2. Encrypted Diary
+A private journal secured with hardware-backed Android KeyStore encryption (`AES-256-GCM`). Your personal reflections are protected by biometric or PIN authentication, with support for encrypted backup and export.
 
-## 📱 Infinix Hot 60i / XOS 15 Configuration Guide
+### 3. 30-Day Self-Reflection
+A structured daily assessment tool tracking focus, discipline, and habit consistency over a 30-day cycle. Generates formatted offline analytical summaries ready to paste into external AI reasoning models for self-improvement insights.
 
-XOS 15 aggressive power-saving policies can sleep accessibility background services. Follow these four simple steps for uninterrupted protection:
+### 4. Academic Grades Tracker
+A dedicated GPA and course progress manager designed for students. Track assignment scores, exam weightings, and goal percentages offline without cloud synchronization.
 
-1. **Set Battery to Unrestricted**:
-   - Go to **Settings** > **Apps** > **Focus Hatif!** > **Battery** > Select **Unrestricted**.
-2. **Allow Background Activity**:
-   - Go to **Settings** > **Battery** > **Power Saving** > **App Battery Management** > **Focus Hatif!** > Enable **Allow background activity**.
-3. **Enable Autostart**:
-   - Go to **Settings** > **Apps** > **Focus Hatif!** > **Autostart** > Toggle **ON**.
-4. **Lock in Recent Apps**:
-   - Swipe up to view Recent Apps, find Focus Hatif!, and tap the **Lock** icon on the card so XOS never clears it from memory.
+### 5. Pomodoro Focus Timer
+A clean interval timer (25-minute focus intervals, 5-minute restorative breaks) to structure study or deep work sessions without notification distractions.
 
----
-
-## 🔋 Battery Consumption FAQ
-
-- **Running Automated JVM / Unit Tests**:
-  - Running Gradle tests (`gradle :app:testDebugUnitTest`) happens entirely inside your build machine or local computer, consuming **0% phone battery**.
-- **Running & Testing the App on your Device**:
-  - Focus Hatif! uses Android's native event-driven `AccessibilityService`. It sleeps when you are in other apps and only checks view hierarchies when you open YouTube or Instagram.
-  - No background polling, no GPS, no Bluetooth, and no network connections.
-  - Typical daily battery usage is **virtually imperceptible (under 0.5% – 1% over a full day)**.
+### 6. Peer Admin Lock
+A tamper-proofing mechanism configured with a trusted friend, study partner, or parent. Prevents impulsive disabling of focus restrictions and lock features when willpower runs low.
 
 ---
 
-## 🛠️ Build Instructions
+## Screenshots
 
-### Command Line
-To compile and generate the debug APK:
+> *Note: Place high-resolution application screenshots in `docs/screenshots/`.*
+
+| Dashboard | Shorts Blocker | Encrypted Diary |
+| :---: | :---: | :---: |
+| ![](docs/screenshots/dashboard.png) | ![](docs/screenshots/blocker.png) | ![](docs/screenshots/diary.png) |
+
+| Reflection Cycle | Academic Tracker | Appearance & Settings |
+| :---: | :---: | :---: |
+| ![](docs/screenshots/reflection.png) | ![](docs/screenshots/grades.png) | ![](docs/screenshots/settings.png) |
+
+---
+
+## Privacy Guarantee
+
+- **Zero Network Permissions:** `android.permission.INTERNET` is completely absent from the manifest. Productive Hub cannot connect to any server, transmit data, or download remote code.
+- **No Telemetry & No Analytics:** No Firebase, no Google Analytics, no third-party SDKs, and no tracking libraries are included in the codebase.
+- **Hardware-Backed Cryptography:** Diary entries are encrypted using `AES-256-GCM` with keys generated and stored inside the Android hardware-backed KeyStore.
+- **Scoped Accessibility:** The accessibility service monitors view hierarchies strictly for YouTube Shorts and Instagram Reels identifiers and completely ignores all other applications and input events.
+
+---
+
+## Architecture & Tech Stack
+
+- **UI Layer:** 100% Jetpack Compose using Material Design 3 (M3) design tokens with support for Xbox Dark, Light, and System themes.
+- **Architecture Pattern:** Clean MVVM (Model-View-ViewModel) with unidirectional data flow.
+- **Reactive State:** Kotlin Coroutines and `StateFlow` for state management.
+- **Hardware & System Integration:** Android `AccessibilityService` for UI tree detection and back-navigation triggers.
+- **Security & Storage:** Android KeyStore, `EncryptedSharedPreferences`, and standard Android `SharedPreferences`.
+- **Zero Network Dependencies:** Built entirely with offline standard libraries.
+
+---
+
+## Getting Started / Building
+
+### Prerequisites
+- **Android Studio:** Ladybug (2024.2.1) or newer
+- **JDK:** OpenJDK 17 or newer
+- **Android SDK:** Compile SDK 35, Min SDK 26
+
+### Cloning & Building
+
 ```bash
-gradle assembleDebug
+# Clone the repository
+git clone https://github.com/XblackHost/Productive-Hub-App.git
+cd Productive-Hub-App
+
+# Build debug APK
+./gradlew assembleDebug
+
+# Run unit tests
+./gradlew test
 ```
-The resulting APK will be located at:
-```
-app/build/outputs/apk/debug/app-debug.apk
-```
+
+The output APK will be generated at:
+`app/build/outputs/apk/debug/app-debug.apk`
+
+### OEM Setup Note
+Custom Android skins (e.g., Infinix XOS, Xiaomi MIUI/HyperOS, Samsung One UI, Oppo/Realme ColorOS) aggressively terminate background accessibility services. For uninterrupted operation:
+1. Open **App Info** for Productive Hub.
+2. Set **Battery Usage** to **Unrestricted** / **No restrictions**.
+3. Enable **Autostart** or lock Productive Hub in the Recents overview.
+
+---
+
+## Contributing
+
+Contributions from the open-source community are warmly welcomed! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) before submitting an issue or pull request.
+
+> **CRITICAL:** Pull requests that introduce `android.permission.INTERNET`, external telemetry, tracking SDKs, or cloud backends will be rejected immediately without exception.
+
+---
+
+## License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.  
+Copyright © 2026 **XBLACK1852**.
+
+---
+
+## Credits
+
+- [Android Open Source Project (AOSP)](https://source.android.com/)
+- [Jetpack Compose & Material 3](https://developer.android.com/jetpack/compose)
+- The open-source privacy and digital well-being developer community.

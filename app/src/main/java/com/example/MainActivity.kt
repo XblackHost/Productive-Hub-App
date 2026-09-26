@@ -12,7 +12,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -36,27 +35,68 @@ class MainActivity : ComponentActivity() {
         DiaryRepository.init(applicationContext)
         ReflectionRepository.init(applicationContext)
         GradesRepository.init(applicationContext)
+        AppSettings.init(applicationContext)
 
         enableEdgeToEdge()
 
         setContent {
             MyApplicationTheme {
-                HatifWorkspaceApp(context = this)
+                ProductiveHubApp(context = this)
             }
         }
     }
 }
 
+data class NavItem(
+    val id: Int,
+    val label: String,
+    val icon: ImageVector
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HatifWorkspaceApp(context: ComponentActivity) {
+fun ProductiveHubApp(context: ComponentActivity) {
     var selectedTab by remember { mutableIntStateOf(0) }
-    // 0: Home, 1: Focus, 2: Diary, 3: Reflection, 4: Grades, 5: Settings
+    // 0: Home, 1: Focus, 2: Diary, 3: Reflection, 4: Grades, 5: Settings, 6: Manual
 
     val isDiaryUnlocked by HatifSecurityManager.isDiaryUnlocked.collectAsState()
+    val settingsState by AppSettings.settingsState.collectAsState()
+
+    // Dynamically filter bottom navigation tabs based on enabled modules
+    val navItems = remember(settingsState) {
+        val list = mutableListOf<NavItem>()
+        list.add(NavItem(0, "Home", Icons.Default.Dashboard))
+
+        val focusEnabled = settingsState.featureShortsBlockerEnabled ||
+                settingsState.featurePomodoroEnabled ||
+                settingsState.featureAdminLockEnabled
+        if (focusEnabled) {
+            list.add(NavItem(1, "Focus", Icons.Default.Shield))
+        }
+
+        if (settingsState.featureDiaryEnabled) {
+            list.add(NavItem(2, "Diary", Icons.Default.Book))
+        }
+
+        if (settingsState.featureReflectionEnabled) {
+            list.add(NavItem(3, "Reflection", Icons.Default.Psychology))
+        }
+
+        if (settingsState.featureGradesEnabled) {
+            list.add(NavItem(4, "Grades", Icons.Default.School))
+        }
+        list
+    }
+
+    // Safety fallback if the currently selected tab was disabled
+    LaunchedEffect(navItems, selectedTab) {
+        if (selectedTab in 1..4 && navItems.none { it.id == selectedTab }) {
+            selectedTab = 0
+        }
+    }
 
     Scaffold(
-        containerColor = XboxBlack,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {
@@ -68,39 +108,41 @@ fun HatifWorkspaceApp(context: ComponentActivity) {
                             modifier = Modifier
                                 .size(10.dp)
                                 .clip(CircleShape)
-                                .background(XboxNeonGreen)
+                                .background(MaterialTheme.colorScheme.primary)
                         )
                         Column {
                             Text(
-                                text = "HATIF WORKSPACE",
+                                text = "PRODUCTIVE HUB",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.ExtraBold,
                                 letterSpacing = 1.5.sp,
-                                color = XboxTextPrimary
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
                                 text = "Personal Platform · Offline & Private",
                                 style = MaterialTheme.typography.labelSmall,
-                                color = XboxTextSecondary,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 10.sp
                             )
                         }
                     }
                 },
                 actions = {
-                    // Quick Diary Lock/Unlock Indicator & Button
-                    IconButton(onClick = {
-                        if (isDiaryUnlocked) {
-                            HatifSecurityManager.lockDiary()
-                        } else {
-                            selectedTab = 2 // Navigate to Diary
+                    // Quick Diary Lock/Unlock Indicator & Button (if diary module is active)
+                    if (settingsState.featureDiaryEnabled) {
+                        IconButton(onClick = {
+                            if (isDiaryUnlocked) {
+                                HatifSecurityManager.lockDiary()
+                            } else {
+                                selectedTab = 2 // Navigate to Diary
+                            }
+                        }) {
+                            Icon(
+                                imageVector = if (isDiaryUnlocked) Icons.Default.LockOpen else Icons.Default.Lock,
+                                contentDescription = if (isDiaryUnlocked) "Vault Unlocked" else "Vault Locked",
+                                tint = if (isDiaryUnlocked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
                         }
-                    }) {
-                        Icon(
-                            imageVector = if (isDiaryUnlocked) Icons.Default.LockOpen else Icons.Default.Lock,
-                            contentDescription = if (isDiaryUnlocked) "Vault Unlocked" else "Vault Locked",
-                            tint = if (isDiaryUnlocked) XboxNeonGreen else XboxTextSecondary
-                        )
                     }
 
                     // Manual & Guide Button
@@ -108,7 +150,7 @@ fun HatifWorkspaceApp(context: ComponentActivity) {
                         Icon(
                             imageVector = Icons.Default.MenuBook,
                             contentDescription = "Manual & Migration",
-                            tint = if (selectedTab == 6) XboxNeonGreen else XboxTextSecondary
+                            tint = if (selectedTab == 6) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
@@ -117,60 +159,52 @@ fun HatifWorkspaceApp(context: ComponentActivity) {
                         Icon(
                             imageVector = Icons.Default.Settings,
                             contentDescription = "Settings",
-                            tint = if (selectedTab == 5) XboxNeonGreen else XboxTextSecondary
+                            tint = if (selectedTab == 5) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = XboxDarkSurface,
-                    titleContentColor = XboxTextPrimary
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         },
         bottomBar = {
             Surface(
-                color = XboxDarkSurface,
-                border = BorderStroke(1.dp, XboxOutline)
+                color = MaterialTheme.colorScheme.surface,
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
             ) {
                 NavigationBar(
-                    containerColor = XboxDarkSurface,
-                    contentColor = XboxTextSecondary,
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     tonalElevation = 0.dp
                 ) {
-                    val navItems = listOf(
-                        Triple(0, "Home", Icons.Default.Dashboard),
-                        Triple(1, "Focus", Icons.Default.Shield),
-                        Triple(2, "Diary", Icons.Default.Book),
-                        Triple(3, "Reflection", Icons.Default.Psychology),
-                        Triple(4, "Grades", Icons.Default.School)
-                    )
-
-                    navItems.forEach { (index, label, icon) ->
-                        val isSelected = selectedTab == index
+                    navItems.forEach { item ->
+                        val isSelected = selectedTab == item.id
                         NavigationBarItem(
                             selected = isSelected,
-                            onClick = { selectedTab = index },
+                            onClick = { selectedTab = item.id },
                             icon = {
                                 Icon(
-                                    imageVector = icon,
-                                    contentDescription = label,
-                                    tint = if (isSelected) XboxNeonGreen else XboxTextSecondary
+                                    imageVector = item.icon,
+                                    contentDescription = item.label,
+                                    tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             },
                             label = {
                                 Text(
-                                    text = label,
+                                    text = item.label,
                                     fontSize = 11.sp,
                                     fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                    color = if (isSelected) XboxNeonGreen else XboxTextSecondary
+                                    color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             },
                             colors = NavigationBarItemDefaults.colors(
-                                indicatorColor = XboxDarkGreen.copy(alpha = 0.6f),
-                                selectedIconColor = XboxNeonGreen,
-                                selectedTextColor = XboxNeonGreen,
-                                unselectedIconColor = XboxTextSecondary,
-                                unselectedTextColor = XboxTextSecondary
+                                indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                                selectedIconColor = MaterialTheme.colorScheme.primary,
+                                selectedTextColor = MaterialTheme.colorScheme.primary,
+                                unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         )
                     }
@@ -182,7 +216,7 @@ fun HatifWorkspaceApp(context: ComponentActivity) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(XboxBlack)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             AnimatedContent(
                 targetState = selectedTab,

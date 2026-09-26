@@ -55,11 +55,11 @@ fun ReflectionScreen(context: Context) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Hero Progress Card with Xbox Neon Style
+        // Hero Progress Card
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             border = BorderStroke(1.dp, StatusInfoCyan.copy(alpha = 0.5f))
         ) {
             Column(
@@ -83,7 +83,7 @@ fun ReflectionScreen(context: Context) {
                             text = "Self-Reflection",
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.ExtraBold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
 
@@ -105,7 +105,7 @@ fun ReflectionScreen(context: Context) {
                 Text(
                     text = "A dedicated 30-day journaling journey. Rate each day 1–10, log your mindset, and generate an AI-ready .txt assessment on Day 30.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 // Progress Bar
@@ -116,7 +116,7 @@ fun ReflectionScreen(context: Context) {
                         .height(8.dp)
                         .clip(RoundedCornerShape(4.dp)),
                     color = StatusInfoCyan,
-                    trackColor = XboxDarkSurfaceVariant
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant
                 )
 
                 Row(
@@ -126,7 +126,7 @@ fun ReflectionScreen(context: Context) {
                     Text(
                         text = "$completedCount of 30 days recorded",
                         style = MaterialTheme.typography.bodySmall,
-                        color = XboxTextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
                         text = "Avg Rating: ${if (avgRating > 0) "$avgRating / 10" else "N/A"}",
@@ -142,8 +142,8 @@ fun ReflectionScreen(context: Context) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(18.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-            border = BorderStroke(1.dp, XboxOutline)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
         ) {
             Column(
                 modifier = Modifier.padding(18.dp),
@@ -159,12 +159,12 @@ fun ReflectionScreen(context: Context) {
                             text = "AI-Ready Growth Report (.txt)",
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = "Formatted for ChatGPT, Claude & Gemini",
                             style = MaterialTheme.typography.bodySmall,
-                            color = XboxTextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -172,7 +172,7 @@ fun ReflectionScreen(context: Context) {
                 Text(
                     text = "Compiles all 30 days of ratings and reflections into a clean .txt file with an evaluation prompt asking the AI to analyze your emotional patterns, consistency, and next steps.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Row(
@@ -183,7 +183,10 @@ fun ReflectionScreen(context: Context) {
                         onClick = { ReflectionRepository.shareExportText(context) },
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = StatusInfoCyan, contentColor = XboxBlack)
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = StatusInfoCyan,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
                     ) {
                         Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(6.dp))
@@ -194,9 +197,9 @@ fun ReflectionScreen(context: Context) {
                         onClick = { showPreviewDialog = true },
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(1.dp, XboxOutline)
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                     ) {
-                        Text("Preview Report", color = XboxTextPrimary, fontSize = 12.sp)
+                        Text("Preview Report", color = MaterialTheme.colorScheme.onSurface, fontSize = 12.sp)
                     }
                 }
             }
@@ -206,8 +209,8 @@ fun ReflectionScreen(context: Context) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(18.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-            border = BorderStroke(1.dp, XboxOutline)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
         ) {
             Column(
                 modifier = Modifier.padding(18.dp),
@@ -222,7 +225,7 @@ fun ReflectionScreen(context: Context) {
                         text = "Log Day $selectedDay Reflection",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = XboxTextPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
 
                     // Day selection quick dropdown/stepper
@@ -234,14 +237,14 @@ fun ReflectionScreen(context: Context) {
                             onClick = { if (selectedDay > 1) selectedDay-- },
                             enabled = selectedDay > 1
                         ) {
-                            Icon(Icons.Default.ChevronLeft, contentDescription = "Previous Day", tint = XboxTextSecondary)
+                            Icon(Icons.Default.ChevronLeft, contentDescription = "Previous Day", tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
-                        Text("Day $selectedDay", color = XboxNeonGreen, fontWeight = FontWeight.Bold)
+                        Text("Day $selectedDay", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
                         IconButton(
                             onClick = { if (selectedDay < 30) selectedDay++ },
                             enabled = selectedDay < 30
                         ) {
-                            Icon(Icons.Default.ChevronRight, contentDescription = "Next Day", tint = XboxTextSecondary)
+                            Icon(Icons.Default.ChevronRight, contentDescription = "Next Day", tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -257,7 +260,7 @@ fun ReflectionScreen(context: Context) {
                             text = "Rate Today: ${rating.toInt()} / 10",
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
 
                         val moodLabel = when (rating.toInt()) {
@@ -278,7 +281,7 @@ fun ReflectionScreen(context: Context) {
                         colors = SliderDefaults.colors(
                             thumbColor = StatusInfoCyan,
                             activeTrackColor = StatusInfoCyan,
-                            inactiveTrackColor = XboxDarkSurfaceVariant
+                            inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant
                         )
                     )
                 }
@@ -292,7 +295,7 @@ fun ReflectionScreen(context: Context) {
                     modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = StatusInfoCyan,
-                        unfocusedBorderColor = XboxOutline
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
                     )
                 )
 
@@ -305,7 +308,7 @@ fun ReflectionScreen(context: Context) {
                     modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = StatusInfoCyan,
-                        unfocusedBorderColor = XboxOutline
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
                     )
                 )
 
@@ -318,7 +321,7 @@ fun ReflectionScreen(context: Context) {
                     modifier = Modifier.fillMaxWidth(),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = StatusInfoCyan,
-                        unfocusedBorderColor = XboxOutline
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
                     )
                 )
 
@@ -343,7 +346,10 @@ fun ReflectionScreen(context: Context) {
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = StatusInfoCyan, contentColor = XboxBlack)
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = StatusInfoCyan,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 ) {
                     Icon(Icons.Default.Check, contentDescription = null)
                     Spacer(Modifier.width(6.dp))
@@ -358,7 +364,7 @@ fun ReflectionScreen(context: Context) {
                 text = "Recorded Days (${reflections.size})",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = XboxTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -366,8 +372,8 @@ fun ReflectionScreen(context: Context) {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(14.dp),
-                        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-                        border = BorderStroke(1.dp, XboxOutline)
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                     ) {
                         Column(
                             modifier = Modifier.padding(14.dp),
@@ -394,12 +400,12 @@ fun ReflectionScreen(context: Context) {
                                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                         )
                                     }
-                                    Text(entry.dateString, style = MaterialTheme.typography.bodySmall, color = XboxTextSecondary)
+                                    Text(entry.dateString, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
 
                                 Surface(
                                     shape = CircleShape,
-                                    color = XboxDarkSurfaceVariant,
+                                    color = MaterialTheme.colorScheme.surfaceVariant,
                                     border = BorderStroke(1.dp, StatusInfoCyan.copy(alpha = 0.4f))
                                 ) {
                                     Text(
@@ -415,14 +421,14 @@ fun ReflectionScreen(context: Context) {
                             Text(
                                 text = entry.reflectionText,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = XboxTextPrimary
+                                color = MaterialTheme.colorScheme.onSurface
                             )
 
                             if (entry.highlights.isNotEmpty()) {
                                 Text(
                                     text = "Win: ${entry.highlights}",
                                     style = MaterialTheme.typography.bodySmall,
-                                    color = XboxNeonGreen
+                                    color = MaterialTheme.colorScheme.primary
                                 )
                             }
                             if (entry.challenges.isNotEmpty()) {
@@ -449,8 +455,8 @@ fun ReflectionScreen(context: Context) {
 
         AlertDialog(
             onDismissRequest = { showPreviewDialog = false },
-            containerColor = XboxDarkSurface,
-            title = { Text("AI Evaluation Report (.txt)", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+            containerColor = MaterialTheme.colorScheme.surface,
+            title = { Text("AI Evaluation Report (.txt)", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
             text = {
                 Column(
                     modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -459,12 +465,12 @@ fun ReflectionScreen(context: Context) {
                     Text(
                         "This report includes all your reflections along with an expert analysis prompt. You can copy it directly into ChatGPT, Claude, or Gemini.",
                         style = MaterialTheme.typography.bodySmall,
-                        color = XboxTextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     Surface(
                         shape = RoundedCornerShape(10.dp),
-                        color = XboxDarkSurfaceVariant,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
@@ -484,13 +490,16 @@ fun ReflectionScreen(context: Context) {
                         Toast.makeText(context, "Full report copied to clipboard!", Toast.LENGTH_SHORT).show()
                         showPreviewDialog = false
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = StatusInfoCyan, contentColor = XboxBlack)
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = StatusInfoCyan,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 ) {
                     Text("Copy Report")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showPreviewDialog = false }) { Text("Close", color = XboxTextSecondary) }
+                TextButton(onClick = { showPreviewDialog = false }) { Text("Close", color = MaterialTheme.colorScheme.onSurfaceVariant) }
             }
         )
     }

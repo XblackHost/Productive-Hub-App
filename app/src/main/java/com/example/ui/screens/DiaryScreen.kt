@@ -64,7 +64,7 @@ fun DiaryScreen(context: Context) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     border = BorderStroke(1.5.dp, XboxNeonGreen.copy(alpha = 0.35f))
                 ) {
                     Row(
@@ -84,13 +84,13 @@ fun DiaryScreen(context: Context) {
                                     text = "Private Vault",
                                     style = MaterialTheme.typography.titleMedium,
                                     fontWeight = FontWeight.Bold,
-                                    color = XboxTextPrimary
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
                             Text(
                                 text = "${entries.size} entries · AES-256 encrypted",
                                 style = MaterialTheme.typography.bodySmall,
-                                color = XboxTextSecondary,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 11.sp
                             )
                         }
@@ -100,13 +100,13 @@ fun DiaryScreen(context: Context) {
                             horizontalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             IconButton(onClick = { showChangePasswordDialog = true }, modifier = Modifier.size(36.dp)) {
-                                Icon(Icons.Default.Password, contentDescription = "Change Password", tint = XboxTextSecondary, modifier = Modifier.size(18.dp))
+                                Icon(Icons.Default.Password, contentDescription = "Change Password", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
                             }
                             IconButton(onClick = { showImportDialog = true }, modifier = Modifier.size(36.dp)) {
-                                Icon(Icons.Default.FileUpload, contentDescription = "Restore Data", tint = XboxTextSecondary, modifier = Modifier.size(18.dp))
+                                Icon(Icons.Default.FileUpload, contentDescription = "Restore Data", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
                             }
                             IconButton(onClick = { showExportDialog = true }, modifier = Modifier.size(36.dp)) {
-                                Icon(Icons.Default.FileDownload, contentDescription = "Export Backup", tint = XboxTextSecondary, modifier = Modifier.size(18.dp))
+                                Icon(Icons.Default.FileDownload, contentDescription = "Export Backup", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
                             }
                             IconButton(onClick = { HatifSecurityManager.lockDiary() }, modifier = Modifier.size(36.dp)) {
                                 Icon(Icons.Default.Lock, contentDescription = "Lock", tint = StatusErrorRed, modifier = Modifier.size(18.dp))
@@ -120,21 +120,21 @@ fun DiaryScreen(context: Context) {
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
                     placeholder = { Text("Search diary entries, tags, or thoughts...", fontSize = 13.sp) },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = XboxTextSecondary, modifier = Modifier.size(20.dp)) },
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp)) },
                     trailingIcon = {
                         if (searchQuery.isNotEmpty()) {
                             IconButton(onClick = { searchQuery = "" }) {
-                                Icon(Icons.Default.Clear, contentDescription = "Clear", tint = XboxTextSecondary, modifier = Modifier.size(18.dp))
+                                Icon(Icons.Default.Clear, contentDescription = "Clear", tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp))
                             }
                         }
                     },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(14.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = XboxDarkSurface,
-                        unfocusedContainerColor = XboxDarkSurface,
+                        focusedContainerColor = MaterialTheme.colorScheme.surface,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                         focusedBorderColor = XboxNeonGreen,
-                        unfocusedBorderColor = XboxOutline
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                     ),
                     singleLine = true
                 )
@@ -154,16 +154,16 @@ fun DiaryScreen(context: Context) {
                             onClick = { selectedMoodFilter = filter },
                             label = { Text(filter, fontSize = 11.sp) },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = XboxNeonGreen,
-                                selectedLabelColor = XboxBlack,
-                                containerColor = XboxDarkSurfaceVariant,
+                                selectedContainerColor = MaterialTheme.colorScheme.primary,
+                                selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
                                 labelColor = XboxTextSecondary
                             ),
                             border = FilterChipDefaults.filterChipBorder(
                                 enabled = true,
                                 selected = isSelected,
-                                borderColor = XboxOutline,
-                                selectedBorderColor = XboxNeonGreen
+                                borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                                selectedBorderColor = MaterialTheme.colorScheme.primary
                             )
                         )
                     }
@@ -196,9 +196,9 @@ fun DiaryScreen(context: Context) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            Icon(Icons.Default.AutoStories, contentDescription = null, tint = XboxOutlineHighlight, modifier = Modifier.size(48.dp))
-                            Text("No diary entries found", color = XboxTextSecondary, style = MaterialTheme.typography.titleMedium)
-                            Text("Tap the + button below to write your first encrypted entry.", color = XboxTextMuted, style = MaterialTheme.typography.bodySmall)
+                            Icon(Icons.Default.AutoStories, contentDescription = null, tint = MaterialTheme.colorScheme.outline, modifier = Modifier.size(48.dp))
+                            Text("No diary entries found", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.titleMedium)
+                            Text("Tap the + button below to write your first encrypted entry.", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                         }
                     }
                 } else {
@@ -226,8 +226,8 @@ fun DiaryScreen(context: Context) {
             // Floating Action Button
             FloatingActionButton(
                 onClick = { showNewEntryDialog = true },
-                containerColor = XboxNeonGreen,
-                contentColor = XboxBlack,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
                 shape = CircleShape,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
@@ -316,16 +316,16 @@ fun DiaryLockedVault(context: Context) {
         Spacer(Modifier.height(16.dp))
 
         Text(
-            text = "Hatif Encrypted Diary",
+            text = "Productive Hub Encrypted Diary",
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.ExtraBold,
-            color = XboxTextPrimary
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         Text(
             text = "Hardware KeyStore AES-256 encrypted at rest. Purely offline & private.",
             style = MaterialTheme.typography.bodySmall,
-            color = XboxTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
         )
 
@@ -347,8 +347,8 @@ fun DiaryLockedVault(context: Context) {
                 .height(52.dp),
             shape = RoundedCornerShape(14.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = XboxNeonGreen,
-                contentColor = XboxBlack
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             )
         ) {
             Icon(Icons.Default.Fingerprint, contentDescription = null, modifier = Modifier.size(24.dp))
@@ -362,8 +362,8 @@ fun DiaryLockedVault(context: Context) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(18.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-            border = BorderStroke(1.dp, XboxOutline)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
         ) {
             Column(
                 modifier = Modifier.padding(18.dp),
@@ -372,7 +372,7 @@ fun DiaryLockedVault(context: Context) {
                 if (hasCustomPassword) {
                     TabRow(
                         selectedTabIndex = selectedMethod,
-                        containerColor = XboxDarkSurfaceVariant,
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
                         contentColor = XboxNeonGreen
                     ) {
                         Tab(selected = selectedMethod == 0, onClick = { selectedMethod = 0 }) {
@@ -388,13 +388,13 @@ fun DiaryLockedVault(context: Context) {
                     Text(
                         text = "Security Question",
                         style = MaterialTheme.typography.titleSmall,
-                        color = XboxTextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = "“${HatifSecurityManager.DEFAULT_SECURITY_QUESTION}”",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = XboxTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.SemiBold
                     )
 
@@ -410,7 +410,7 @@ fun DiaryLockedVault(context: Context) {
                         modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = XboxNeonGreen,
-                            unfocusedBorderColor = XboxOutline
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                         )
                     )
 
@@ -424,7 +424,7 @@ fun DiaryLockedVault(context: Context) {
                         },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = XboxDarkSurfaceVariant, contentColor = XboxNeonGreen)
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant, contentColor = XboxNeonGreen)
                     ) {
                         Text("Unlock Vault", fontWeight = FontWeight.Bold)
                     }
@@ -432,7 +432,7 @@ fun DiaryLockedVault(context: Context) {
                     Text(
                         text = "Enter Diary Password",
                         style = MaterialTheme.typography.titleSmall,
-                        color = XboxTextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold
                     )
                     OutlinedTextField(
@@ -447,7 +447,7 @@ fun DiaryLockedVault(context: Context) {
                         modifier = Modifier.fillMaxWidth(),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = XboxNeonGreen,
-                            unfocusedBorderColor = XboxOutline
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                         )
                     )
 
@@ -461,7 +461,7 @@ fun DiaryLockedVault(context: Context) {
                         },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = XboxDarkSurfaceVariant, contentColor = XboxNeonGreen)
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant, contentColor = XboxNeonGreen)
                     ) {
                         Text("Unlock with Password", fontWeight = FontWeight.Bold)
                     }
@@ -488,8 +488,8 @@ fun DiaryEntryCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, if (entry.isFavorite) XboxGreen else XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, if (entry.isFavorite) XboxGreen else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -506,21 +506,21 @@ fun DiaryEntryCard(
                 ) {
                     Surface(
                         shape = RoundedCornerShape(8.dp),
-                        color = XboxDarkSurfaceVariant,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         modifier = Modifier.padding(2.dp)
                     ) {
                         Text(
                             text = entry.mood,
                             style = MaterialTheme.typography.labelSmall,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     Text(
                         text = entry.title,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = XboxTextPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
@@ -533,7 +533,7 @@ fun DiaryEntryCard(
                         )
                     }
                     IconButton(onClick = onDelete) {
-                        Icon(Icons.Default.DeleteOutline, contentDescription = "Delete", tint = XboxTextSecondary)
+                        Icon(Icons.Default.DeleteOutline, contentDescription = "Delete", tint = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -541,7 +541,7 @@ fun DiaryEntryCard(
             Text(
                 text = entry.content,
                 style = MaterialTheme.typography.bodyMedium,
-                color = XboxTextSecondary
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Row(
@@ -552,7 +552,7 @@ fun DiaryEntryCard(
                 Text(
                     text = entry.formattedDate,
                     style = MaterialTheme.typography.labelSmall,
-                    color = XboxTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
 
@@ -615,7 +615,7 @@ fun NewDiaryEntryDialog(
                 .fillMaxSize()
                 .padding(top = 28.dp, bottom = 16.dp, start = 12.dp, end = 12.dp),
             shape = RoundedCornerShape(24.dp),
-            color = XboxDarkSurface,
+            color = MaterialTheme.colorScheme.surface,
             border = BorderStroke(1.5.dp, XboxNeonGreen.copy(alpha = 0.4f)),
             shadowElevation = 16.dp
         ) {
@@ -654,13 +654,13 @@ fun NewDiaryEntryDialog(
                                 text = "Dear Diary,",
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
-                                color = XboxTextPrimary,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontFamily = FontFamily.Serif
                             )
                             Text(
                                 text = todayDateFormatted,
                                 style = MaterialTheme.typography.labelSmall,
-                                color = XboxTextSecondary,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontStyle = FontStyle.Italic
                             )
                         }
@@ -678,7 +678,7 @@ fun NewDiaryEntryDialog(
                             )
                         }
                         IconButton(onClick = onDismiss) {
-                            Icon(Icons.Default.Close, contentDescription = "Close", tint = XboxTextSecondary)
+                            Icon(Icons.Default.Close, contentDescription = "Close", tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -688,7 +688,7 @@ fun NewDiaryEntryDialog(
                     Text(
                         text = "Current Mood & State",
                         style = MaterialTheme.typography.labelSmall,
-                        color = XboxTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.SemiBold
                     )
                     Row(
@@ -702,7 +702,7 @@ fun NewDiaryEntryDialog(
                                 color = if (isSelected) XboxNeonGreen else XboxDarkSurfaceVariant,
                                 border = BorderStroke(
                                     1.dp,
-                                    if (isSelected) XboxNeonGreen else XboxOutline
+                                    if (isSelected) XboxNeonGreen else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                                 ),
                                 modifier = Modifier
                                     .weight(1f)
@@ -735,8 +735,8 @@ fun NewDiaryEntryDialog(
                 // Notebook writing area with classic lined-journal look
                 Surface(
                     shape = RoundedCornerShape(16.dp),
-                    color = XboxDarkSurfaceVariant,
-                    border = BorderStroke(1.dp, XboxOutline),
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)),
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
@@ -755,7 +755,7 @@ fun NewDiaryEntryDialog(
                                 Text(
                                     "Title of your day / reflection...",
                                     style = MaterialTheme.typography.titleMedium,
-                                    color = XboxTextMuted,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     fontFamily = FontFamily.Serif
                                 )
                             },
@@ -764,7 +764,7 @@ fun NewDiaryEntryDialog(
                                 focusedContainerColor = androidx.compose.ui.graphics.Color.Transparent,
                                 unfocusedContainerColor = androidx.compose.ui.graphics.Color.Transparent,
                                 focusedIndicatorColor = XboxNeonGreen,
-                                unfocusedIndicatorColor = XboxOutline,
+                                unfocusedIndicatorColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
                                 focusedTextColor = XboxTextPrimary,
                                 unfocusedTextColor = XboxTextPrimary
                             ),
@@ -783,7 +783,7 @@ fun NewDiaryEntryDialog(
                             placeholder = {
                                 Text(
                                     "Write your authentic thoughts, struggles, breakthroughs, and daily reflections here...\n\nEvery word is hardware-encrypted via AES-256 and stays strictly on your device.",
-                                    color = XboxTextMuted,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     fontSize = 14.sp,
                                     lineHeight = 22.sp,
                                     fontStyle = FontStyle.Italic
@@ -800,7 +800,7 @@ fun NewDiaryEntryDialog(
                             textStyle = MaterialTheme.typography.bodyMedium.copy(
                                 fontSize = 15.sp,
                                 lineHeight = 24.sp,
-                                color = XboxTextPrimary
+                                color = MaterialTheme.colorScheme.onSurface
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -816,7 +816,7 @@ fun NewDiaryEntryDialog(
                             OutlinedTextField(
                                 value = tagsInput,
                                 onValueChange = { tagsInput = it },
-                                placeholder = { Text("#tags (e.g. goals, highschool, mind)", fontSize = 11.sp, color = XboxTextMuted) },
+                                placeholder = { Text("#tags (e.g. goals, highschool, mind)", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) },
                                 singleLine = true,
                                 modifier = Modifier
                                     .weight(1f)
@@ -824,22 +824,22 @@ fun NewDiaryEntryDialog(
                                 shape = RoundedCornerShape(10.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
                                     focusedBorderColor = XboxNeonGreen,
-                                    unfocusedBorderColor = XboxOutline,
-                                    focusedContainerColor = XboxDarkSurface,
-                                    unfocusedContainerColor = XboxDarkSurface
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.surface
                                 ),
-                                textStyle = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp, color = XboxTextPrimary)
+                                textStyle = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurface)
                             )
 
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = XboxDarkSurface,
-                                border = BorderStroke(1.dp, XboxOutline)
+                                color = MaterialTheme.colorScheme.surface,
+                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                             ) {
                                 Text(
                                     text = "$wordCount words",
                                     fontSize = 11.sp,
-                                    color = XboxTextSecondary,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     fontWeight = FontWeight.Medium,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
                                 )
@@ -858,7 +858,7 @@ fun NewDiaryEntryDialog(
                         onClick = onDismiss,
                         modifier = Modifier.weight(0.35f)
                     ) {
-                        Text("Cancel", color = XboxTextSecondary)
+                        Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
 
                     Button(
@@ -884,8 +884,8 @@ fun NewDiaryEntryDialog(
                             .height(48.dp),
                         shape = RoundedCornerShape(14.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = XboxNeonGreen,
-                            contentColor = XboxBlack
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
                         )
                     ) {
                         Icon(Icons.Default.Lock, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -917,14 +917,14 @@ fun ChangeDiaryPasswordDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Configure Custom Password", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Configure Custom Password", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
                     "You can set a personal password or PIN. This can be used in addition to your fingerprint and the security question.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 OutlinedTextField(
                     value = newPassword,
@@ -932,7 +932,7 @@ fun ChangeDiaryPasswordDialog(
                     label = { Text("New Password / PIN") },
                     visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 )
                 OutlinedTextField(
                     value = confirmPassword,
@@ -940,7 +940,7 @@ fun ChangeDiaryPasswordDialog(
                     label = { Text("Confirm New Password") },
                     visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 )
                 errorMsg?.let { Text(it, color = StatusErrorRed, style = MaterialTheme.typography.bodySmall) }
             }
@@ -958,13 +958,13 @@ fun ChangeDiaryPasswordDialog(
                         onDismiss()
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = XboxNeonGreen, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary)
             ) {
                 Text("Save Password")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }
@@ -983,18 +983,18 @@ fun ExportBackupDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Encrypted Backup Payload", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Encrypted Backup Payload", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
                     "This payload contains all diary entries encrypted with your hardware AES-256 key. It cannot be read without your device key.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = XboxDarkSurfaceVariant,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp)
@@ -1016,13 +1016,13 @@ fun ExportBackupDialog(
                     Toast.makeText(context, "Encrypted payload copied to clipboard.", Toast.LENGTH_SHORT).show()
                     onDismiss()
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = XboxNeonGreen, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary)
             ) {
                 Text("Copy Backup")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Close", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Close", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }

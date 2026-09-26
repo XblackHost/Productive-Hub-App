@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.json.JSONObject
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
@@ -21,6 +23,7 @@ object FocusPreferences {
     private const val KEY_TODAY_COUNT = "key_today_count"
     private const val KEY_TOTAL_COUNT = "key_total_count"
     private const val KEY_LAST_DATE = "key_last_date"
+    private const val KEY_DAILY_USAGE_HISTORY = "key_daily_usage_history"
 
     // Admin Lock preferences
     private const val KEY_ADMIN_LOCK_ENABLED = "key_admin_lock_enabled"
@@ -32,6 +35,12 @@ object FocusPreferences {
 
     // 24 hours in milliseconds for emergency recovery
     const val EMERGENCY_RESET_DURATION_MS = 24 * 60 * 60 * 1000L
+
+    data class DailyUsage(
+        val ytSeconds: Long = 0L,
+        val igSeconds: Long = 0L,
+        val blocks: Int = 0
+    )
 
     data class FocusStats(
         val isBlockingEnabled: Boolean = true,
@@ -50,6 +59,9 @@ object FocusPreferences {
     private val _statsFlow = MutableStateFlow(FocusStats())
     val statsFlow: StateFlow<FocusStats> = _statsFlow.asStateFlow()
 
+    private val _dailyUsageFlow = MutableStateFlow<Map<String, DailyUsage>>(emptyMap())
+    val dailyUsageFlow: StateFlow<Map<String, DailyUsage>> = _dailyUsageFlow.asStateFlow()
+
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
@@ -62,6 +74,52 @@ object FocusPreferences {
         val md = MessageDigest.getInstance("SHA-256")
         val bytes = md.digest(input.trim().lowercase().toByteArray(Charsets.UTF_8))
         return bytes.joinToString("") { "%02x".format(it) }
+    }
+
+    private fun serializeHistory(map: Map<String, DailyUsage>): String {
+        val root = JSONObject()
+        map.forEach { (date, usage) ->
+            val item = JSONObject()
+            item.put("ytSeconds", usage.ytSeconds)
+            item.put("igSeconds", usage.igSeconds)
+            item.put("blocks", usage.blocks)
+            root.put(date, item)
+        }
+        return root.toString()
+    }
+
+    private fun deserializeHistory(jsonStr: String): MutableMap<String, DailyUsage> {
+        val result = mutableMapOf<String, DailyUsage>()
+        if (jsonStr.isBlank()) return result
+        try {
+            val root = JSONObject(jsonStr)
+            val keys = root.keys()
+            while (keys.hasNext()) {
+                val key = keys.next()
+                val item = root.optJSONObject(key)
+                if (item != null) {
+                    result[key] = DailyUsage(
+                        ytSeconds = item.optLong("ytSeconds", 0L),
+                        igSeconds = item.optLong("igSeconds", 0L),
+                        blocks = item.optInt("blocks", 0)
+                    )
+                }
+            }
+        } catch (_: Exception) {}
+        return result
+    }
+
+    private fun updateDailyHistoryEntry(prefs: SharedPreferences, date: String, ytUsed: Int, igUsed: Int, blocks: Int) {
+        val rawJson = prefs.getString(KEY_DAILY_USAGE_HISTORY, "") ?: ""
+        val historyMap = deserializeHistory(rawJson)
+        historyMap[date] = DailyUsage(
+            ytSeconds = ytUsed.toLong(),
+            igSeconds = igUsed.toLong(),
+            blocks = blocks
+        )
+        val newJson = serializeHistory(historyMap)
+        prefs.edit().putString(KEY_DAILY_USAGE_HISTORY, newJson).apply()
+        _dailyUsageFlow.value = historyMap
     }
 
     fun init(context: Context) {
@@ -84,6 +142,30 @@ object FocusPreferences {
                 .putInt(KEY_IG_USED_SECONDS, 0)
                 .apply()
         }
+
+        // Load and purge daily usage history (keep last 30 days)
+        val rawHistory = prefs.getString(KEY_DAILY_USAGE_HISTORY, "") ?: ""
+        val historyMap = deserializeHistory(rawHistory)
+        val cutoffCal = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -30) }
+        val cutoffDateStr = SimpleDateFormat("yyyy-MM-dd", Locale.US).format(cutoffCal.time)
+        val purgedMap = historyMap.filterKeys { it >= cutoffDateStr }.toMutableMap()
+        if (!purgedMap.containsKey(today)) {
+            purgedMap[today] = DailyUsage(
+                ytSeconds = ytUsedSec.toLong(),
+                igSeconds = igUsedSec.toLong(),
+                blocks = todayCount
+            )
+        } else {
+            val existing = purgedMap[today]!!
+            purgedMap[today] = existing.copy(
+                ytSeconds = maxOf(existing.ytSeconds, ytUsedSec.toLong()),
+                igSeconds = maxOf(existing.igSeconds, igUsedSec.toLong()),
+                blocks = maxOf(existing.blocks, todayCount)
+            )
+        }
+        val serialized = serializeHistory(purgedMap)
+        prefs.edit().putString(KEY_DAILY_USAGE_HISTORY, serialized).apply()
+        _dailyUsageFlow.value = purgedMap
 
         val isEnabled = prefs.getBoolean(KEY_BLOCKING_ENABLED, true)
         val ytLimit = prefs.getInt(KEY_YT_LIMIT_MINUTES, 0)
@@ -190,6 +272,8 @@ object FocusPreferences {
             .putInt(KEY_IG_USED_SECONDS, igUsed)
             .apply()
 
+        updateDailyHistoryEntry(prefs, today, ytUsed, igUsed, todayCount)
+
         _statsFlow.value = _statsFlow.value.copy(
             youtubeUsedSeconds = ytUsed,
             instagramUsedSeconds = igUsed,
@@ -222,6 +306,8 @@ object FocusPreferences {
             .putInt(KEY_TOTAL_COUNT, totalCount)
             .apply()
 
+        updateDailyHistoryEntry(prefs, today, ytUsed, igUsed, todayCount)
+
         _statsFlow.value = _statsFlow.value.copy(
             todayBlocks = todayCount,
             totalBlocks = totalCount
@@ -238,6 +324,8 @@ object FocusPreferences {
             .putInt(KEY_IG_USED_SECONDS, 0)
             .putInt(KEY_TODAY_COUNT, 0)
             .apply()
+
+        updateDailyHistoryEntry(prefs, today, 0, 0, 0)
 
         _statsFlow.value = _statsFlow.value.copy(
             youtubeUsedSeconds = 0,

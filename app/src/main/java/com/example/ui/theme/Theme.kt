@@ -1,10 +1,16 @@
 package com.example.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.example.AppSettings
+import com.example.ThemeMode
 
-private val XboxDarkColorScheme = darkColorScheme(
+val XboxDarkColorScheme = darkColorScheme(
     primary = XboxNeonGreen,
     onPrimary = XboxBlack,
     primaryContainer = XboxDarkGreen,
@@ -27,13 +33,44 @@ private val XboxDarkColorScheme = darkColorScheme(
     onError = XboxBlack
 )
 
+val LightColorScheme = lightColorScheme(
+    primary = LightPrimary,
+    onPrimary = LightOnPrimary,
+    primaryContainer = LightPrimaryContainer,
+    onPrimaryContainer = LightOnPrimaryContainer,
+    secondary = XboxGreen,
+    onSecondary = LightOnPrimary,
+    secondaryContainer = LightSurfaceVariant,
+    onSecondaryContainer = LightPrimary,
+    tertiary = XboxLightGreen,
+    onTertiary = LightTextPrimary,
+    background = LightBackground,
+    onBackground = LightTextPrimary,
+    surface = LightSurface,
+    onSurface = LightTextPrimary,
+    surfaceVariant = LightSurfaceVariant,
+    onSurfaceVariant = LightTextSecondary,
+    outline = LightOutline,
+    outlineVariant = LightOutlineHighlight,
+    error = StatusErrorRed,
+    onError = LightOnPrimary
+)
+
 @Composable
 fun MyApplicationTheme(
-    darkTheme: Boolean = true, // Default to sleek Xbox dark theme
     content: @Composable () -> Unit,
 ) {
+    val settingsState by AppSettings.settingsState.collectAsState()
+    val isSystemDark = isSystemInDarkTheme()
+
+    val colorScheme = when (settingsState.themeMode) {
+        ThemeMode.XBOX_DARK -> XboxDarkColorScheme
+        ThemeMode.LIGHT -> LightColorScheme
+        ThemeMode.SYSTEM -> if (isSystemDark) XboxDarkColorScheme else LightColorScheme
+    }
+
     MaterialTheme(
-        colorScheme = XboxDarkColorScheme,
+        colorScheme = colorScheme,
         typography = Typography,
         content = content
     )

@@ -74,13 +74,13 @@ fun FocusScreen(context: Context) {
     ) {
         // Master Blocker Switch Card
         val switchBorderColor by animateColorAsState(
-            targetValue = if (stats.isBlockingEnabled) XboxNeonGreen else XboxOutline,
+            targetValue = if (stats.isBlockingEnabled) XboxNeonGreen else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
             label = "border"
         )
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             border = BorderStroke(1.dp, switchBorderColor)
         ) {
             Column(
@@ -106,7 +106,7 @@ fun FocusScreen(context: Context) {
                                 text = "Shorts & Reels Shield",
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold,
-                                color = XboxTextPrimary
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Text(
@@ -115,7 +115,7 @@ fun FocusScreen(context: Context) {
                             else
                                 "Distraction shield is paused. YouTube & Instagram are unmonitored.",
                             style = MaterialTheme.typography.bodySmall,
-                            color = XboxTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = 4.dp)
                         )
                     }
@@ -202,8 +202,8 @@ fun FocusScreen(context: Context) {
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(18.dp),
-            colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-            border = BorderStroke(1.dp, XboxOutline)
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
         ) {
             Column(
                 modifier = Modifier.padding(18.dp),
@@ -213,7 +213,7 @@ fun FocusScreen(context: Context) {
                     text = "Focus Activity & Rescues",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = XboxTextPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Row(
@@ -247,7 +247,7 @@ fun FocusScreen(context: Context) {
             onSetMode = { isBreak, minutes -> PomodoroState.setMode(isBreak, minutes) }
         )
 
-        // Infinix Hot 60i / XOS 15 & Accessibility Status Card
+        // Device & Accessibility Status Card
         SystemSetupCard(
             context = context,
             isAccessibilityActive = isAccessibilityActive,
@@ -321,8 +321,8 @@ fun AdminLockCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, if (stats.isAdminLockEnabled) XboxGreen else XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, if (stats.isAdminLockEnabled) XboxGreen else MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(18.dp),
@@ -347,7 +347,7 @@ fun AdminLockCard(
                             text = if (stats.isAdminLockEnabled) "Peer Admin Lock Active" else "Peer Admin Lock (Anti-Relapse)",
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
-                            color = XboxTextPrimary
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
                             text = if (stats.isAdminLockEnabled)
@@ -355,7 +355,7 @@ fun AdminLockCard(
                             else
                                 "Have a peer set a password so you can't bypass limits",
                             style = MaterialTheme.typography.bodySmall,
-                            color = XboxTextSecondary
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
@@ -381,7 +381,7 @@ fun AdminLockCard(
                         onClick = onManageClick,
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = XboxDarkSurfaceVariant, contentColor = XboxNeonGreen)
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surfaceVariant, contentColor = XboxNeonGreen)
                     ) {
                         Text("Manage / Disable", fontWeight = FontWeight.SemiBold)
                     }
@@ -389,9 +389,9 @@ fun AdminLockCard(
                         onClick = onEmergencyRecoveryClick,
                         modifier = Modifier.weight(1f),
                         shape = RoundedCornerShape(12.dp),
-                        border = BorderStroke(1.dp, XboxOutline)
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                     ) {
-                        Text("Recovery", color = XboxTextSecondary)
+                        Text("Recovery", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -409,8 +409,8 @@ fun DailyTimerAllowanceCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(18.dp),
@@ -426,12 +426,12 @@ fun DailyTimerAllowanceCard(
                         text = "Daily Scrolling Allowance",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = XboxTextPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = "Auto-backs when daily limit expires",
                         style = MaterialTheme.typography.bodySmall,
-                        color = XboxTextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -449,7 +449,7 @@ fun DailyTimerAllowanceCard(
                 onSelectLimit = onUpdateYt
             )
 
-            HorizontalDivider(color = XboxOutline.copy(alpha = 0.5f))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f).copy(alpha = 0.5f))
 
             // Instagram Limit Section
             TimerRow(
@@ -485,7 +485,7 @@ fun TimerRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Icon(imageVector = icon, contentDescription = appName, tint = XboxNeonGreen, modifier = Modifier.size(18.dp))
-                Text(appName, style = MaterialTheme.typography.titleSmall, color = XboxTextPrimary, fontWeight = FontWeight.Bold)
+                Text(appName, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold)
             }
             Text(
                 text = if (currentLimitMinutes == 0) "Strict 0m (Instant Exit)" else "$usedMinutes of $currentLimitMinutes mins used",
@@ -514,16 +514,16 @@ fun TimerRow(
                         )
                     },
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = XboxNeonGreen,
-                        selectedLabelColor = XboxBlack,
-                        containerColor = XboxDarkSurfaceVariant,
+                        selectedContainerColor = MaterialTheme.colorScheme.primary,
+                        selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
                         labelColor = XboxTextSecondary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
                         enabled = true,
                         selected = isSelected,
-                        borderColor = XboxOutline,
-                        selectedBorderColor = XboxNeonGreen
+                        borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                        selectedBorderColor = MaterialTheme.colorScheme.primary
                     )
                 )
             }
@@ -542,8 +542,8 @@ fun PomodoroCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(18.dp),
@@ -560,12 +560,12 @@ fun PomodoroCard(
                         text = if (state.isBreak) "Break Time" else "Focus Interval",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = XboxTextPrimary
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = "${state.completedPomodoros} focus sessions completed today",
                         style = MaterialTheme.typography.bodySmall,
-                        color = XboxTextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -623,9 +623,9 @@ fun PomodoroCard(
                 OutlinedButton(
                     onClick = onReset,
                     shape = RoundedCornerShape(12.dp),
-                    border = BorderStroke(1.dp, XboxOutline)
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 ) {
-                    Icon(Icons.Default.Refresh, contentDescription = "Reset", tint = XboxTextSecondary)
+                    Icon(Icons.Default.Refresh, contentDescription = "Reset", tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
 
@@ -663,18 +663,18 @@ fun SystemSetupCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = XboxDarkSurface),
-        border = BorderStroke(1.dp, XboxOutline)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(18.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Infinix Hot 60i / XOS 15 Status",
+                text = "Device Setup",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
-                color = XboxTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             StatusItemRow(
@@ -691,12 +691,12 @@ fun SystemSetupCard(
                 }
             )
 
-            HorizontalDivider(color = XboxOutline.copy(alpha = 0.5f))
+            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
 
             StatusItemRow(
-                label = "XOS Background Battery Policy",
+                label = "Background Battery Policy",
                 isActive = isIgnoringBattery,
-                activeDesc = "Unrestricted (XOS won't kill service)",
+                activeDesc = "Unrestricted (OS won't kill service)",
                 inactiveDesc = "Optimized (Service may sleep)",
                 actionLabel = "App Info",
                 onAction = {
@@ -736,7 +736,7 @@ fun StatusItemRow(
                         .clip(CircleShape)
                         .background(if (isActive) XboxNeonGreen else StatusErrorRed)
                 )
-                Text(label, style = MaterialTheme.typography.titleSmall, color = XboxTextPrimary)
+                Text(label, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
             }
             Text(
                 text = if (isActive) activeDesc else inactiveDesc,
@@ -762,16 +762,16 @@ fun MetricBox(
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(14.dp),
-        color = XboxDarkSurfaceVariant,
-        border = BorderStroke(1.dp, XboxOutline)
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
     ) {
         Column(
             modifier = Modifier.padding(14.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(title, style = MaterialTheme.typography.labelSmall, color = XboxTextSecondary)
+            Text(title, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Text(count, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.ExtraBold, color = color)
-            Text(subtitle, style = MaterialTheme.typography.labelSmall, color = XboxTextMuted, fontSize = 10.sp)
+            Text(subtitle, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 10.sp)
         }
     }
 }
@@ -792,14 +792,14 @@ fun AdminPinDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Enter Admin Password", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Enter Admin Password", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 Text(
                     "This setting is locked by your trusted peer. Enter the admin password to proceed:",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 OutlinedTextField(
                     value = pin,
@@ -814,7 +814,7 @@ fun AdminPinDialog(
                     singleLine = true,
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = XboxNeonGreen,
-                        unfocusedBorderColor = XboxOutline
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
                     )
                 )
                 TextButton(onClick = onForgotPassword) {
@@ -831,13 +831,13 @@ fun AdminPinDialog(
                         errorMsg = "Incorrect admin password."
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = XboxNeonGreen, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary)
             ) {
                 Text("Unlock")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }
@@ -859,8 +859,8 @@ fun AdminSetupDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Peer Admin Lock Setup", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Peer Admin Lock Setup", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -869,7 +869,7 @@ fun AdminSetupDialog(
                 Text(
                     "Hand your phone to your trusted friend or parent. They will configure a secret password that you do not know.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = XboxTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 OutlinedTextField(
@@ -878,7 +878,7 @@ fun AdminSetupDialog(
                     label = { Text("Admin Password / PIN") },
                     visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 )
 
                 OutlinedTextField(
@@ -887,14 +887,14 @@ fun AdminSetupDialog(
                     label = { Text("Confirm Password") },
                     visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 )
 
                 OutlinedTextField(
                     value = question,
                     onValueChange = { question = it },
                     label = { Text("Security Question") },
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 )
 
                 OutlinedTextField(
@@ -902,16 +902,16 @@ fun AdminSetupDialog(
                     onValueChange = { answer = it },
                     label = { Text("Secret Answer") },
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 )
 
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = XboxDarkSurfaceVariant,
-                    border = BorderStroke(1.dp, XboxOutline)
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                 ) {
                     Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text("Master Recovery Key (Save this):", style = MaterialTheme.typography.labelSmall, color = XboxTextSecondary)
+                        Text("Master Recovery Key (Save this):", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Text(recoveryKey, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = XboxNeonGreen, fontFamily = FontFamily.Monospace)
                         TextButton(
                             onClick = {
@@ -942,13 +942,13 @@ fun AdminSetupDialog(
                         onSuccess()
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = XboxNeonGreen, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary)
             ) {
                 Text("Lock Settings")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }
@@ -961,18 +961,18 @@ fun AdminManageDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Admin Lock Management", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Admin Lock Management", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("You have verified the peer admin password. You can now disable the Admin Lock or inspect recovery parameters.", color = XboxTextSecondary, style = MaterialTheme.typography.bodySmall)
+                Text("You have verified the peer admin password. You can now disable the Admin Lock or inspect recovery parameters.", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = XboxDarkSurfaceVariant,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(10.dp)) {
-                        Text("Recovery Key:", style = MaterialTheme.typography.labelSmall, color = XboxTextSecondary)
+                        Text("Recovery Key:", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Text(stats.recoveryKey, color = XboxNeonGreen, fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace)
                     }
                 }
@@ -985,13 +985,13 @@ fun AdminManageDialog(
                     Toast.makeText(context, "Admin Lock disabled.", Toast.LENGTH_SHORT).show()
                     onDismiss()
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = StatusErrorRed, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(containerColor = StatusErrorRed, contentColor = MaterialTheme.colorScheme.onPrimary)
             ) {
                 Text("Disable Admin Lock")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Close", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Close", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }
@@ -1009,13 +1009,13 @@ fun AdminRecoveryDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = XboxDarkSurface,
-        title = { Text("Admin Password Recovery", color = XboxTextPrimary, fontWeight = FontWeight.Bold) },
+        containerColor = MaterialTheme.colorScheme.surface,
+        title = { Text("Admin Password Recovery", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 TabRow(
                     selectedTabIndex = selectedTab,
-                    containerColor = XboxDarkSurfaceVariant,
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
                     contentColor = XboxNeonGreen
                 ) {
                     Tab(selected = selectedTab == 0, onClick = { selectedTab = 0 }) {
@@ -1031,28 +1031,28 @@ fun AdminRecoveryDialog(
 
                 when (selectedTab) {
                     0 -> {
-                        Text("Question: ${stats.securityQuestion.ifEmpty { "What does Hatif Wants?" }}", color = XboxTextPrimary, fontWeight = FontWeight.Medium)
+                        Text("Question: ${stats.securityQuestion.ifEmpty { "What is your secret core motivation?" }}", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Medium)
                         OutlinedTextField(
                             value = answerInput,
                             onValueChange = { answerInput = it },
                             label = { Text("Answer") },
-                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                         )
                     }
                     1 -> {
-                        Text("Enter your 10-character master recovery key:", color = XboxTextSecondary, style = MaterialTheme.typography.bodySmall)
+                        Text("Enter your 10-character master recovery key:", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
                         OutlinedTextField(
                             value = keyInput,
                             onValueChange = { keyInput = it },
                             label = { Text("FH-XXXX-XXXX") },
-                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = XboxOutline)
+                            colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = XboxNeonGreen, unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                         )
                     }
                     2 -> {
-                        Text("Emergency 24-Hour Delayed Reset:", color = XboxTextPrimary, fontWeight = FontWeight.Bold)
+                        Text("Emergency 24-Hour Delayed Reset:", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold)
                         Text(
                             "If you lost your password and recovery key, a 24-hour delayed reset ensures you don't relapse impulsively. Once 24 hours pass, the lock releases.",
-                            color = XboxTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -1090,13 +1090,13 @@ fun AdminRecoveryDialog(
                         }
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = XboxNeonGreen, contentColor = XboxBlack)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary)
             ) {
                 Text(if (selectedTab == 2) "Start 24h Reset" else "Verify & Unlock")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = XboxTextSecondary) }
+            TextButton(onClick = onDismiss) { Text("Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
     )
 }

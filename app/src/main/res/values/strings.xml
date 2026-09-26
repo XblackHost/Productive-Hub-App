@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hatif Workspace</string>
+    <string name="app_name">Productive Hub</string>
     <string name="app_tagline">Personal Platform for Focus, Reflection &amp; Growth</string>
 
     <!-- Navigation -->
@@ -10,7 +10,7 @@
     <string name="nav_grades">Grades</string>
     <string name="nav_settings">Settings</string>
 
-    <!-- Accessibility Service & Blocker (Preserved from Focus Hatif!) -->
+    <!-- Accessibility Service & Blocker -->
     <string name="accessibility_service_description">Enforces daily scrolling limits and auto-exits YouTube Shorts and Instagram Reels to protect your attention. Strictly confined to YouTube and Instagram.</string>
     <string name="master_switch_title">Shorts &amp; Reels Shield</string>
     <string name="master_switch_subtitle">Active scrolling limits and exit protection</string>
@@ -20,18 +20,18 @@
     <string name="btn_open_accessibility">Enable Service</string>
     <string name="status_battery_title">Battery Optimization</string>
     <string name="status_battery_unrestricted">Unrestricted (Recommended)</string>
-    <string name="status_battery_restricted">Restricted (XOS may stop service)</string>
+    <string name="status_battery_restricted">Restricted (OS may stop service)</string>
     <string name="btn_request_battery">Request Exemption</string>
     <string name="btn_open_app_info">Open App Info</string>
-    <string name="xos_instructions_title">Infinix Hot 60i / XOS 15 Guide</string>
-    <string name="xos_step_1">1. Settings > Apps > Hatif Workspace > Battery > Unrestricted.</string>
-    <string name="xos_step_2">2. Settings > Battery > Power Saving > App Battery Management > Hatif Workspace > Allow background activity.</string>
-    <string name="xos_step_3">3. Settings > Apps > Hatif Workspace > Autostart > ON.</string>
-    <string name="xos_step_4">4. Lock Hatif Workspace in recent apps menu.</string>
+    <string name="device_instructions_title">Device Background &amp; Battery Guide</string>
+    <string name="device_step_1">1. Settings > Apps > Productive Hub > Battery > Unrestricted.</string>
+    <string name="device_step_2">2. Settings > Battery > Power Saving / Background Management > Allow background activity.</string>
+    <string name="device_step_3">3. Settings > Apps > Productive Hub > Autostart / Auto-launch > ON.</string>
+    <string name="device_step_4">4. Lock Productive Hub in recent apps / overview menu.</string>
     <string name="stats_title">Today\'s Scroll Allowance &amp; Activity</string>
     <string name="stats_today">Blocks Today</string>
     <string name="stats_total">Total Rescues</string>
-    <string name="toast_blocked">Hatif Workspace: Limit reached — back to focus!</string>
+    <string name="toast_blocked">Productive Hub: Limit reached — back to focus!</string>
     <string name="timer_section_title">Daily Scrolling Allowance</string>
     <string name="timer_section_desc">Set how many minutes you can scroll Shorts &amp; Reels per day before auto-exit kicks in.</string>
     <string name="youtube_limit_label">YouTube Shorts</string>
@@ -58,7 +58,7 @@
     <string name="diary_subtitle">AES-256 encrypted at rest. Purely offline &amp; private.</string>
     <string name="diary_locked_header">Private Sanctuary</string>
     <string name="diary_locked_desc">This diary is encrypted with Android KeyStore hardware cryptography. Authenticate to decrypt and read your personal entries.</string>
-    <string name="diary_security_question">What does Hatif Wants?</string>
+    <string name="diary_security_question">What is your secret core motivation?</string>
     <string name="diary_new_entry">New Diary Entry</string>
     <string name="diary_change_password">Change Password</string>
 
